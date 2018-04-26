@@ -27,13 +27,13 @@ def load_data_wrapper():
     # Format training_data
     training_inputs = [np.reshape(x, (784,1)) for x in tr_d[0]]
     training_results = [vectorized_result(y) for y in tr_d[1]]
-    training_data = zip(training_inputs, training_results)
+    training_data = list(zip(training_inputs, training_results))
 
     # Format validation_data & test_data
     validation_input = [np.reshape(x, (784,1)) for x in va_d[0]]
     validation_data = list(zip(validation_input, va_d[1]))
     test_input = [np.reshape(x, (784,1)) for x in te_d[0]]
-    test_data = zip(test_input, te_d[1])
+    test_data = list(zip(test_input, te_d[1]))
 
     return (training_data,validation_data,test_data)
 

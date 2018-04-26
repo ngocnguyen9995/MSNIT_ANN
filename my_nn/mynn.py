@@ -6,11 +6,11 @@ class Network(object):
         self.num_layers = len(sizes)
         self.sizes = sizes
         self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
-        self.weights = [np.random.randn(y, x) for x, y in zip(sizes[:-1], sizes[1:])]
+        self.weights = [np.random.randn(y, x) for x, y in list(zip(sizes[:-1], sizes[1:]))]
 
     def feedforward(self, a):
         #return output of network if a is input
-        for b, w in zip(self.biases, self.weights):
+        for b, w in list(zip(self.biases, self.weights)):
             a = sigmoid(np.dot(w,a) + b)
         return a
 
@@ -42,10 +42,10 @@ class Network(object):
         nabla_w = [np.zeros(w.shape) for w in self.weights]
         for x, y in mini_batch:
             delta_nabla_b, delta_nable_w = self.backprop(x,y)
-            nabla_b = [nb+dnb for nb, dnb in zip(nabla_b, delta_nabla_b)]
-            nabla_w = [nw+dnw for nw, dnw in zip(nabla_w, delta_nable_w)]
-        self.weights = [w-(eta/len(mini_batch))*nw for w, nw in zip(self.weights, nabla_w)]
-        self.biases = [b-(eta/len(mini_batch))* nb for b, nb in zip(self.biases, nabla_b)]
+            nabla_b = [nb+dnb for nb, dnb in list(zip(nabla_b, delta_nabla_b))]
+            nabla_w = [nw+dnw for nw, dnw in list(zip(nabla_w, delta_nable_w))]
+        self.weights = [w-(eta/len(mini_batch))*nw for w, nw in list(zip(self.weights, nabla_w))]
+        self.biases = [b-(eta/len(mini_batch))* nb for b, nb in list(zip(self.biases, nabla_b))]
 
     def backprop(self, x, y):
         # Return a tuple(nabla_b, nabla_w) -> gradient for cost func
