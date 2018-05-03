@@ -191,10 +191,9 @@ class Network(object):
             "sizes": self.sizes,
             "weights": [w.tolist() for w in self.weights],
             "biases": [b.tolist() for b in self.biases],
-            "cost": str(self.cost.__name__)
-        }
+            "cost": str(self.cost.__name__)}
 
-        f = open(filename, "wb")
+        f = open(filename, "w")
         json.dump(data, f)
         f.close()
 
